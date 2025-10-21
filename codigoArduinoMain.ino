@@ -60,6 +60,7 @@ void loop() {
 
   if (analogRead(fc)>10){
 
+    posicionar(lPeca[0],lPeca[1],lPeca[2]);
     posicionar(
               coordenadas[0][nivel][qtd],
               coordenadas[1][nivel][qtd],
@@ -133,4 +134,54 @@ void calcularPos(){
       qtd++;
     }
   
+}
+
+void posicionar(int i, int j, int k){
+
+  i = i - x;
+  j = j - y;
+  k = k - z;
+
+  for (int n=1;1;){
+    
+    n = 0;
+    
+    if (i<0){
+      passo_antihorario(1);
+      x--;
+      n = 1;
+    }
+    
+    if (j<0){
+      passo_antihorario(2);
+      y--;
+      n = 1;
+    }
+    
+    if (k<0){
+      passo_antihorario(3);
+      z--;
+      n = 1;
+    }
+    
+    if (i>0){
+      passo_horario(1);
+      x++;
+      n = 1;
+    }
+    
+    if (j>0){
+      passo_horario(2);
+      y++;
+      n = 1;
+    }
+    
+    if (k>0){
+      passo_horario(3);
+      z++;
+      n = 1;
+    }
+    
+  }
+
 }
