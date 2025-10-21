@@ -1,0 +1,127 @@
+#DEFINE nivelMax 2
+#DEFINE qtdMax 2
+int m1_1 = 2;
+int m1_2 = 3;
+int m1_3 = 4;
+int m1_4 = 5;
+int m2_1 = 6;
+int m2_2 = 7;
+int m2_3 = 8;
+int m2_4 = 9;
+int m3_1 = 10;
+int m3_2 = 11;
+int m3_3 = 12;
+int m3_4 = 13;
+int x = 0;
+int y = 0;
+int z = 0;
+int fc = A0;
+int posI = A1;
+int nivel = 0;
+int qtd = 0;
+int coordenadas[3][3][3] = { //   [x,y,z]  [nivel]  [qtd]
+  {
+    {0, 0, 0},
+    {0, 0, 0},         // x
+    {0, 0, 0}
+  },
+  {
+    {0, 0, 0},
+    {0, 0, 0},         // y      
+    {0, 0, 0}
+  },
+  {
+    {0, 0, 0},
+    {0, 0, 0},         // z
+    {0, 0, 0}
+  }
+};
+void setup() {
+
+  pinMode(posI,INPUT);
+  pinMode(fc,INPUT);
+  pinMode(m1_1,OUTPUT);
+  pinMode(m1_2,OUTPUT);
+  pinMode(m1_3,OUTPUT);
+  pinMode(m1_4,OUTPUT);
+  pinMode(m2_1,OUTPUT);
+  pinMode(m2_2,OUTPUT);
+  pinMode(m2_3,OUTPUT);
+  pinMode(m2_4,OUTPUT);
+  pinMode(m3_1,OUTPUT);
+  pinMode(m3_2,OUTPUT);
+  pinMode(m3_3,OUTPUT);
+  pinMode(m3_4,OUTPUT);
+
+}
+
+void loop() {
+
+  if (analogRead(fc)>10){
+
+    posicionar(
+              coordenadas[0][nivel][qtd],
+              coordenadas[1][nivel][qtd],
+              coordenadas[2][nivel][qtd]
+              );
+      
+    calcularPos();
+    
+  }
+ 
+}
+ 
+ void passo_horario() {
+  ativaBobinas(1, 0, 0, 0);
+  delay(5);
+  ativaBobinas(0, 1, 0, 0);
+  delay(5);
+  ativaBobinas(0, 0, 1, 0);
+  delay(5);
+  ativaBobinas(0, 0, 0, 1);
+  delay(5);
+}
+
+void passo_antihorario() {
+  ativaBobinas(0, 0, 0, 1);
+  delay(5);
+  ativaBobinas(0, 0, 1, 0);
+  delay(5);
+  ativaBobinas(0, 1, 0, 0);
+  delay(5);
+  ativaBobinas(1, 0, 0, 0);
+  delay(5);
+}
+
+void ativaBobinas(int a, int b, int c, int d) {
+  digitalWrite(m1_1, a);
+  digitalWrite(m1_2, b);
+  digitalWrite(m1_3, c);
+  digitalWrite(m1_4, d);
+}
+
+void calcularPos(){
+
+    if(qtd=qtdMax){
+
+      qtd = 0;
+      
+      if (nivel<nivelMax){
+        
+        nivel++;
+
+      }
+      else{
+
+        nivel = 0;
+        
+      }
+      
+    }
+    else{
+
+      qtd++;
+
+    }
+
+}
