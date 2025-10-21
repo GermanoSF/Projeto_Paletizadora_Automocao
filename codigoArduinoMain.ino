@@ -36,6 +36,7 @@ int coordenadas[3][3][3] = { //   [x,y,z]  [nivel]  [qtd]
     {0, 0, 0}
   }
 };
+int lPeca[3] = {0,0,0} // {x,y,z}
 void setup() {
 
   pinMode(posI,INPUT);
@@ -71,57 +72,65 @@ void loop() {
  
 }
  
- void passo_horario() {
-  ativaBobinas(1, 0, 0, 0);
+ void passo_horario(int m) {
+  ativaBobinas(1, 0, 0, 0, m);
   delay(5);
-  ativaBobinas(0, 1, 0, 0);
+  ativaBobinas(0, 1, 0, 0, m);
   delay(5);
-  ativaBobinas(0, 0, 1, 0);
+  ativaBobinas(0, 0, 1, 0, m);
   delay(5);
-  ativaBobinas(0, 0, 0, 1);
-  delay(5);
-}
-
-void passo_antihorario() {
-  ativaBobinas(0, 0, 0, 1);
-  delay(5);
-  ativaBobinas(0, 0, 1, 0);
-  delay(5);
-  ativaBobinas(0, 1, 0, 0);
-  delay(5);
-  ativaBobinas(1, 0, 0, 0);
+  ativaBobinas(0, 0, 0, 1, m);
   delay(5);
 }
 
-void ativaBobinas(int a, int b, int c, int d) {
-  digitalWrite(m1_1, a);
-  digitalWrite(m1_2, b);
-  digitalWrite(m1_3, c);
-  digitalWrite(m1_4, d);
+void passo_antihorario(int m) {
+  ativaBobinas(0, 0, 0, 1, m);
+  delay(5);
+  ativaBobinas(0, 0, 1, 0, m);
+  delay(5);
+  ativaBobinas(0, 1, 0, 0, m);
+  delay(5);
+  ativaBobinas(1, 0, 0, 0, m);
+  delay(5);
+}
+
+void ativaBobinas(int a, int b, int c, int d, int m) {
+  
+  switch(m){
+    case 1:
+      digitalWrite(m1_1, a);
+      digitalWrite(m1_2, b);
+      digitalWrite(m1_3, c);
+      digitalWrite(m1_4, d);
+      break;
+    case 2:
+      digitalWrite(m2_1, a);
+      digitalWrite(m2_2, b);
+      digitalWrite(m2_3, c);
+      digitalWrite(m2_4, d);
+      break;
+    case 3:
+      digitalWrite(m3_1, a);
+      digitalWrite(m3_2, b);
+      digitalWrite(m3_3, c);
+      digitalWrite(m3_4, d);
+  }
+  
 }
 
 void calcularPos(){
 
     if(qtd=qtdMax){
-
-      qtd = 0;
-      
-      if (nivel<nivelMax){
-        
+      qtd = 0;      
+      if (nivel<nivelMax){   
         nivel++;
-
       }
       else{
-
-        nivel = 0;
-        
-      }
-      
+        nivel = 0;    
+      }    
     }
     else{
-
       qtd++;
-
     }
-
+  
 }
