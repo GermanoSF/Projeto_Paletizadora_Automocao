@@ -1,5 +1,5 @@
-#DEFINE nivelMax 2
-#DEFINE qtdMax 2
+#define nivelMax 2
+#define qtdMax 2
 int m1_1 = 2;
 int m1_2 = 3;
 int m1_3 = 4;
@@ -36,7 +36,14 @@ int coordenadas[3][3][3] = { //   [x,y,z]  [nivel]  [qtd]
     {0, 0, 0}
   }
 };
-int lPeca[3] = {0,0,0} // {x,y,z}
+int lPeca[3] = {0,0,0}; // {x,y,z}
+
+void passo_horario(int m);
+void passo_antihorario(int m);
+void ativaBobinas(int a, int b, int c, int d, int m);
+void calcularPos();
+void posicionar(int i, int j, int k);
+
 void setup() {
 
   pinMode(posI,INPUT);
@@ -60,7 +67,6 @@ void loop() {
 
   if (analogRead(fc)>10){
 
-    posicionar(lPeca[0],lPeca[1],lPeca[2]);
     posicionar(
               coordenadas[0][nivel][qtd],
               coordenadas[1][nivel][qtd],
@@ -185,3 +191,4 @@ void posicionar(int i, int j, int k){
   }
 
 }
+
